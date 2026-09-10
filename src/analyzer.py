@@ -3,7 +3,7 @@ import json
 import httpx
 from typing import List, Dict, Any
 
-DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 PROMPT_TEMPLATE = """你是一名资深 AI 架构师兼前沿技术观察员。
 请根据以下从 hype.replicate.dev 抓取的过去 24 小时最热门的 AI/ML 开源项目与模型动态，生成一份高质量的「AI 晨报雷达」。

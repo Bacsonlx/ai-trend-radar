@@ -10,7 +10,7 @@
 - **Gemini Flash 智能研判**：自动将项目归类为【Agent & 自动化流】、【模型 & 推理革命】、【开发者神器 & 效率】、【前沿黑客 & 逆向】，并一句话说明痛点与适合人群。
 - **高颜值飞书交互卡片**：定制排版，包含分类徽章、指标热度、评级星级与一键直达原始链接。
 - **智能历史去重**：自动记录已推送项目，智能标记「🆕 新上榜」与「🔥 持续霸榜」，防止信息疲劳。
-- **100% 零成本托管**：基于 GitHub Actions 调度，每日早 08:00 定时执行，无需购买云服务器。
+- **100% 零成本托管**：基于 GitHub Actions 调度，每天台北时间 09:00 定时汇总过去 24 小时的 AI 趋势，无需购买云服务器。
 
 ---
 
@@ -73,7 +73,7 @@ python main.py
      - `GEMINI_API_KEY`: 你的 Google AI Studio 密钥（必填）。
      - `FEISHU_WEBHOOK_URL`: 你的飞书机器人 Webhook 地址（必填）。
      - `FEISHU_SECRET`: 飞书机器人的签名密钥（可选，未开启校验则不填）。
-     - `GEMINI_MODEL`: `gemini-1.5-flash`（可选，默认即为 Flash）。
+     - `GEMINI_MODEL`: `gemini-2.5-flash`（可选，默认即为 Flash）。
 
 4. **开启 Actions 提交权限（重要）**：
    - 在仓库的 **Settings** ➔ **Actions** ➔ **General** 页面最底部；
@@ -95,7 +95,7 @@ python main.py
 ai-trend-radar/
 ├── .github/
 │   └── workflows/
-│       └── daily_radar.yml    # 每天 08:00 定时执行任务
+│       └── daily_radar.yml    # 每天台北时间 09:00 定时执行任务
 ├── src/
 │   ├── __init__.py
 │   ├── fetcher.py            # 抓取 hype.replicate.dev 过去 24h 榜单
@@ -104,6 +104,8 @@ ai-trend-radar/
 │   └── feishu.py             # 飞书交互式卡片构建与安全发送
 ├── data/
 │   └── history.json          # 历史推送缓存（自动维护）
+├── tests/
+│   └── test_main.py          # 报告日期与时区测试
 ├── .env.example              # 环境变量配置模板
 ├── .gitignore
 ├── requirements.txt          # 极简依赖库 (httpx, bs4, dotenv)

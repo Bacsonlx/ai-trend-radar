@@ -1,0 +1,109 @@
+{
+  "items": {
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash": {
+      "title": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "🤗 611",
+      "pushed_count": 2
+    },
+    "https://github.com/yureii1996/cek-probe-model": {
+      "title": "yureii1996/cek-probe-model",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 354",
+      "pushed_count": 2
+    },
+    "https://github.com/kevinzakka/mjbatch": {
+      "title": "kevinzakka/mjbatch",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 135",
+      "pushed_count": 2
+    },
+    "https://github.com/yi1108/printfilm": {
+      "title": "yi1108/printfilm",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 129",
+      "pushed_count": 2
+    },
+    "https://github.com/tue09/awesome-reasoning-generalization": {
+      "title": "tue09/awesome-reasoning-generalization",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 123",
+      "pushed_count": 2
+    },
+    "https://github.com/furkan-bayrak/lg-tv-blocklist": {
+      "title": "furkan-bayrak/lg-tv-blocklist",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 50",
+      "pushed_count": 2
+    },
+    "https://huggingface.co/PerceptronAI/Isaac-0.5": {
+      "title": "PerceptronAI/Isaac-0.5",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "🤗 40",
+      "pushed_count": 2
+    },
+    "https://github.com/circle-group/hktex": {
+      "title": "circle-group/hktex",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 23",
+      "pushed_count": 2
+    },
+    "https://github.com/MarkUnthank/flyhard": {
+      "title": "MarkUnthank/flyhard",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 20",
+      "pushed_count": 2
+    },
+    "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL-fp8": {
+      "title": "inclusionAI/Ling-3.0-flash-VL-fp8",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "🤗 19",
+      "pushed_count": 2
+    },
+    "https://github.com/chuspeeism/dashi-motion": {
+      "title": "chuspeeism/dashi-motion",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 18",
+      "pushed_count": 2
+    },
+    "https://github.com/FjgarciaMac/WhisperDeck": {
+      "title": "FjgarciaMac/WhisperDeck",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 17",
+      "pushed_count": 2
+    },
+    "https://github.com/miyang-ai/Mi-Ripple": {
+      "title": "miyang-ai/Mi-Ripple",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "⭐ 16",
+      "pushed_count": 2
+    },
+    "https://huggingface.co/peculiar-ragdoll/Cyber-Tiel-Coder-35B-A3B-GGUF-MTP": {
+      "title": "peculiar-ragdoll/Cyber-Tiel-Coder-35B-A3B-GGUF-MTP",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "🤗 16",
+      "pushed_count": 2
+    },
+    "https://huggingface.co/Jab1718/qwen3.8-flash-coder-44gb-selective-int8": {
+      "title": "Jab1718/qwen3.8-flash-coder-44gb-selective-int8",
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-09-10",
+      "metric": "🤗 14",
+      "pushed_count": 2
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 
 from src.fetcher import fetch_hype_items
@@ -8,17 +9,30 @@ from src.deduplicator import filter_and_mark_items, save_history
 from src.analyzer import analyze_with_gemini
 from src.feishu import send_feishu_card
 
+REPORT_TIMEZONE = ZoneInfo("Asia/Taipei")
+
+
+def get_report_date(now: datetime | None = None) -> str:
+    """返回台北时区的昨日日期。"""
+    current_time = now or datetime.now(REPORT_TIMEZONE)
+    if current_time.tzinfo is None:
+        current_time = current_time.replace(tzinfo=REPORT_TIMEZONE)
+    else:
+        current_time = current_time.astimezone(REPORT_TIMEZONE)
+    return (current_time.date() - timedelta(days=1)).isoformat()
+
+
 def main():
     # 优先加载本地 .env 文件
     load_dotenv()
 
     gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
-    gemini_model = os.getenv("GEMINI_MODEL", "gemini-1.5-flash").strip()
+    gemini_model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
     feishu_webhook = os.getenv("FEISHU_WEBHOOK_URL", "").strip()
     feishu_secret = os.getenv("FEISHU_SECRET", "").strip()
 
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"=== 🚀 开始执行「AI 趋势雷达」晨报任务 ({today_str}) ===")
+    report_date = get_report_date()
+    print(f"=== 🚀 开始执行「AI 趋势雷达」昨日晨报任务 ({report_date}) ===")
 
     # 1. 抓取数据
     print("[1/4] 正在抓取 hype.replicate.dev 过去 24 小时榜单...")
@@ -42,13 +56,16 @@ def main():
         success = send_feishu_card(
             webhook_url=feishu_webhook,
             items=analyzed_items,
-            date_str=today_str,
+            date_str=report_date,
             secret=feishu_secret if feishu_secret else None
         )
         if success:
             # 仅在推送成功后持久化更新历史记录
             save_history(updated_history)
             print("✅ 历史缓存已持久化更新！")
+        else:
+            print("❌ 飞书推送失败，任务终止且不更新历史缓存。")
+            sys.exit(1)
     else:
         print("\n⚠️ 未配置 FEISHU_WEBHOOK_URL，以下为控制台预览：")
         print("-" * 50)

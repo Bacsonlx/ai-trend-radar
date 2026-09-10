@@ -2,8 +2,8 @@ name: Daily AI Trend Radar
 
 on:
   schedule:
-    # 每天北京时间 08:00 执行 (对应 UTC 00:00)
-    - cron: '0 0 * * *'
+    # 每天台北时间 09:00 执行 (对应 UTC 01:00)
+    - cron: '0 1 * * *'
   # 允许在 GitHub Actions 页面手动点击 "Run workflow" 随时测试
   workflow_dispatch:
 
@@ -28,10 +28,14 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Run tests
+        run: |
+          python -m unittest discover -s tests -v
+
       - name: Execute Radar Pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-1.5-flash' }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
         run: |

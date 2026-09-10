@@ -37,7 +37,7 @@ def send_feishu_card(
         "text": {
             "tag": "lark_md",
             "content": (
-                f"📅 **今日速览**：监控到过去 24 小时 GitHub & HuggingFace 涌现多个高热度工程项目。"
+                f"📅 **昨日速览**：监控到过去 24 小时 GitHub & HuggingFace 涌现多个高热度工程项目。"
                 f"经 Gemini Flash 智能研判，为你精选以下 **{len(items)}** 条核心动态："
             )
         }
@@ -96,7 +96,7 @@ def send_feishu_card(
             "header": {
                 "title": {
                     "tag": "plain_text",
-                    "content": f"📡 AI 趋势雷达 · 晨报 ({date_str})"
+                    "content": f"📡 AI 趋势雷达 · 昨日晨报 ({date_str})"
                 },
                 "template": "blue"
             },
