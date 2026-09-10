@@ -1,0 +1,45 @@
+name: Daily AI Trend Radar
+
+on:
+  schedule:
+    # 每天北京时间 08:00 执行 (对应 UTC 00:00)
+    - cron: '0 0 * * *'
+  # 允许在 GitHub Actions 页面手动点击 "Run workflow" 随时测试
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-radar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Execute Radar Pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-1.5-flash' }}
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
+        run: |
+          python main.py
+
+      - name: Commit and push cache update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update radar history cache [skip ci]" && git push)
