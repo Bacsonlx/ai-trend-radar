@@ -104,6 +104,97 @@
       "last_seen": "2026-09-10",
       "metric": "🤗 14",
       "pushed_count": 3
+    },
+    "https://huggingface.co/nex-agi/Nex-N2.5-Pro": {
+      "title": "nex-agi/Nex-N2.5-Pro",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 581",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/DavidAU/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-ULTRA-HERETIC-Uncensored": {
+      "title": "DavidAU/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-ULTRA-HERETIC-Uncensored",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 20",
+      "pushed_count": 1
+    },
+    "https://github.com/aaronyi97/wedding-video-guided-wizard": {
+      "title": "aaronyi97/wedding-video-guided-wizard",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "⭐ 10",
+      "pushed_count": 1
+    },
+    "https://github.com/nicodunks/fruitless": {
+      "title": "nicodunks/fruitless",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "⭐ 9",
+      "pushed_count": 1
+    },
+    "https://github.com/gnipbao/openai-image-prompt-writer": {
+      "title": "gnipbao/openai-image-prompt-writer",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "⭐ 9",
+      "pushed_count": 1
+    },
+    "https://github.com/Jammers-Simulator-Lab/JammersSimulator-Tool": {
+      "title": "Jammers-Simulator-Lab/JammersSimulator-Tool",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "⭐ 9",
+      "pushed_count": 1
+    },
+    "https://github.com/tenaiaiai/dsv41-flash-4x-dgx-spark-ja": {
+      "title": "tenaiaiai/dsv41-flash-4x-dgx-spark-ja",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "⭐ 8",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/microsoft/STELLAR": {
+      "title": "microsoft/STELLAR",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 6",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/HannesVonEssen/microduck-basketball": {
+      "title": "HannesVonEssen/microduck-basketball",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 5",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/saidutta69/MiniCPM5-1B-heretic": {
+      "title": "saidutta69/MiniCPM5-1B-heretic",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 3",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/saidutta69/DeepSeek-R1-Distill-Qwen-14B-heretic": {
+      "title": "saidutta69/DeepSeek-R1-Distill-Qwen-14B-heretic",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/TberiusJunyao/T1-122B-A10B": {
+      "title": "TberiusJunyao/T1-122B-A10B",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/philipjohnbasile/wisp-coder-110m": {
+      "title": "philipjohnbasile/wisp-coder-110m",
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-09-11",
+      "metric": "🤗 2",
+      "pushed_count": 1
     }
   }
 }
