@@ -195,6 +195,111 @@
       "last_seen": "2026-09-11",
       "metric": "🤗 2",
       "pushed_count": 1
+    },
+    "https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity": {
+      "title": "WarmBloodAban/Minimax-h3_Singularity",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 302",
+      "pushed_count": 1
+    },
+    "https://github.com/joykraft/vla_pi0": {
+      "title": "joykraft/vla_pi0",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 51",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/DavidAU/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NM-DAU-NEO-MTP-GGUF": {
+      "title": "DavidAU/Qwen3.8-27B-TWIN-TURBO-Fable-Cold-Fusion-709-L-Uncensored-NM-DAU-NEO-MTP-GGUF",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 45",
+      "pushed_count": 1
+    },
+    "https://github.com/atbender/deepseek-v41-flash-mac-mini": {
+      "title": "atbender/deepseek-v41-flash-mac-mini",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 29",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/IFM/K2-Horizon-3.7B": {
+      "title": "IFM/K2-Horizon-3.7B",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 27",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/AEON-7/Qwen3.8-27B-AEON-ULTIMATE-UNCENSORED-NVFP4-MIXED": {
+      "title": "AEON-7/Qwen3.8-27B-AEON-ULTIMATE-UNCENSORED-NVFP4-MIXED",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 25",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/gbuzhf/KAT-Coder-V2.5-Dev-MTP-GGUF": {
+      "title": "gbuzhf/KAT-Coder-V2.5-Dev-MTP-GGUF",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 15",
+      "pushed_count": 1
+    },
+    "https://github.com/AgriciDaniel/youtube-scout": {
+      "title": "AgriciDaniel/youtube-scout",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 14",
+      "pushed_count": 1
+    },
+    "https://github.com/nftechie/flm": {
+      "title": "nftechie/flm",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 14",
+      "pushed_count": 1
+    },
+    "https://github.com/empero-org/autocode": {
+      "title": "empero-org/autocode",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 10",
+      "pushed_count": 1
+    },
+    "https://github.com/crypt0p3g/adexsnap": {
+      "title": "crypt0p3g/adexsnap",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "⭐ 10",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/gbuzhf/Ornith-1.5-35B-A3B-TIEL-Calibrated-MTPv2-ICE-GGUF": {
+      "title": "gbuzhf/Ornith-1.5-35B-A3B-TIEL-Calibrated-MTPv2-ICE-GGUF",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 4",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/SIP-med-LLM/SIP-jmed-llm-3-8x13b-OP-32k-R0.1": {
+      "title": "SIP-med-LLM/SIP-jmed-llm-3-8x13b-OP-32k-R0.1",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 4",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/veldierin/Artemis-31B-v1q-GGUF": {
+      "title": "veldierin/Artemis-31B-v1q-GGUF",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/gbuzhf/Ornith-1.0-35B-MTP-UD-APEX-GGUF": {
+      "title": "gbuzhf/Ornith-1.0-35B-MTP-UD-APEX-GGUF",
+      "first_seen": "2026-09-12",
+      "last_seen": "2026-09-12",
+      "metric": "🤗 2",
+      "pushed_count": 1
     }
   }
 }
