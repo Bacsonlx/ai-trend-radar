@@ -300,6 +300,69 @@
       "last_seen": "2026-09-12",
       "metric": "🤗 2",
       "pushed_count": 1
+    },
+    "https://github.com/zorrobyte/asset-studio": {
+      "title": "zorrobyte/asset-studio",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "⭐ 11",
+      "pushed_count": 1
+    },
+    "https://github.com/binghe1980/new-media-analyzer": {
+      "title": "binghe1980/new-media-analyzer",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "⭐ 11",
+      "pushed_count": 1
+    },
+    "https://github.com/3587jjh/HuRo": {
+      "title": "3587jjh/HuRo",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "⭐ 10",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/remsky/kokoro-inno-clone-tuner": {
+      "title": "remsky/kokoro-inno-clone-tuner",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "🤗 10",
+      "pushed_count": 1
+    },
+    "https://github.com/jmleclercq/hastty": {
+      "title": "jmleclercq/hastty",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "⭐ 8",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/QUASAR-QAT/gemma-4-12B-it-QUASAR-Q4_0-GGUF": {
+      "title": "QUASAR-QAT/gemma-4-12B-it-QUASAR-Q4_0-GGUF",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/QUASAR-QAT/Muse-Glimmer-30B-QUASAR-NVFP4": {
+      "title": "QUASAR-QAT/Muse-Glimmer-30B-QUASAR-NVFP4",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/OlegSkutte/Z-Image-Turbo-GGUF": {
+      "title": "OlegSkutte/Z-Image-Turbo-GGUF",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/SL-AI/GRaPE-2.5-Quasar": {
+      "title": "SL-AI/GRaPE-2.5-Quasar",
+      "first_seen": "2026-09-13",
+      "last_seen": "2026-09-13",
+      "metric": "🤗 2",
+      "pushed_count": 1
     }
   }
 }
