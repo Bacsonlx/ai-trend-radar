@@ -2,6 +2,7 @@ import json
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
 from urllib.parse import urljoin
@@ -21,6 +22,11 @@ DEFAULT_PRIORITY_WEIGHTS = {
 VOICE_MODEL_KEYWORDS = (
     "speech", "voice", "audio", "tts", "asr", "stt", "whisper",
     "语音", "音频", "文本转语音", "语音识别",
+)
+AI_TOPIC_KEYWORDS = (
+    "ai", "人工智能", "模型", "大模型", "gpt", "openai", "anthropic",
+    "claude", "gemini", "deepseek", "qwen", "llm", "agent", "智能体",
+    "机器人", "推理", "算力", "芯片", "语音",
 )
 DEFAULT_HEADERS = {
     "User-Agent": (
@@ -89,9 +95,9 @@ def assign_priorities(
     """按 AI 热点、开源、语音模型、其他模型标记优先级。"""
     for item in items:
         priority_key = "other_model"
-        if item.get("source_type") == "aihot":
+        if item.get("source_type") in {"aihot", "sopilot"}:
             priority_key = "ai_hot"
-        elif item.get("source") == "GitHub":
+        elif item.get("source_type") == "github_high_star":
             priority_key = "open_source"
         elif is_voice_model(item):
             priority_key = "voice_model"
@@ -115,8 +121,12 @@ def fetch_source(source: Dict[str, Any], report_date: str) -> List[Dict[str, Any
     source_type = source.get("type")
     if source_type == "hype":
         return fetch_hype_items(source)
+    if source_type == "github_high_star":
+        return fetch_github_high_star_items(source)
     if source_type == "aihot":
         return fetch_aihot_items(source)
+    if source_type == "sopilot":
+        return fetch_sopilot_items(source)
     if source_type == "geekpark":
         return fetch_geekpark_items(source)
     if source_type == "horizon":
@@ -164,6 +174,39 @@ def fetch_hype_items(source: Dict[str, Any]) -> List[Dict[str, Any]]:
     return items
 
 
+def fetch_github_high_star_items(source: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """抓取总 Star 达标且近期活跃的 AI 开源项目，替代 GitHub 速增榜。"""
+    activity_days = source.get("activity_days", 30)
+    active_since = (datetime.now(timezone.utc) - timedelta(days=activity_days)).date().isoformat()
+    query = (
+        f"topic:{source.get('topic', 'ai')} "
+        f"stars:>={source.get('min_stars', 2000)} pushed:>={active_since}"
+    )
+    data = request_json(
+        source["url"],
+        params={"q": query, "sort": "updated", "order": "desc", "per_page": source.get("limit", 5)},
+        timeout=source.get("timeout", 15.0),
+    )
+    return parse_github_high_star_items(data, source)
+
+
+def parse_github_high_star_items(data: Dict[str, Any], source: Dict[str, Any]) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = []
+    for repository in data.get("items", [])[:source.get("limit", 5)]:
+        stars = repository.get("stargazers_count", 0)
+        if stars < source.get("min_stars", 2000):
+            continue
+        items.append(build_item(
+            source,
+            rank=len(items) + 1,
+            title=repository.get("full_name", "未知仓库"),
+            url=repository.get("html_url", ""),
+            metric=f"⭐ {stars:,}",
+            description=repository.get("description") or "近期活跃的高星 AI 开源项目。",
+        ))
+    return items
+
+
 def fetch_aihot_items(source: Dict[str, Any]) -> List[Dict[str, Any]]:
     """抓取 AIHot 首页的实时热点榜。"""
     html = request_html(source["url"], timeout=source.get("timeout", 15.0))
@@ -194,6 +237,45 @@ def parse_aihot_items(html: str, source: Dict[str, Any]) -> List[Dict[str, Any]]
             description="",
         ))
     return items
+
+
+def fetch_sopilot_items(source: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """抓取 SoPilot 起爆话题榜中与 AI 相关的高热度话题。"""
+    html = request_html(source["url"], timeout=source.get("timeout", 15.0))
+    return parse_sopilot_items(html, source)
+
+
+def parse_sopilot_items(html: str, source: Dict[str, Any]) -> List[Dict[str, Any]]:
+    soup = BeautifulSoup(html, "html.parser")
+    heading = soup.find(string=lambda value: value and value.strip() == "起爆热点话题")
+    section = heading.find_parent("section") if heading else None
+    if not section:
+        return []
+
+    items: List[Dict[str, Any]] = []
+    for article in section.select("article"):
+        link = article.select_one("a[href^='/rank/topic/']")
+        if not link or len(items) >= source.get("limit", 5):
+            continue
+        title = link.get_text(" ", strip=True)
+        if not title or not is_ai_topic(title):
+            continue
+        topic_stats = link.find_next_sibling("div")
+        stats_text = topic_stats.get_text(" ", strip=True) if topic_stats else article.get_text(" ", strip=True)
+        heat_match = re.search(r"(\d+(?:\.\d+)?(?:万|亿))", stats_text)
+        items.append(build_item(
+            source,
+            rank=len(items) + 1,
+            title=title,
+            url=urljoin(source["url"], link.get("href", "")),
+            metric=f"🔥 {heat_match.group(1)} 曝光" if heat_match else "",
+            description="X 平台过去 24 小时的高热 AI 讨论话题。",
+        ))
+    return items
+
+
+def is_ai_topic(title: str) -> bool:
+    return any(keyword in title.lower() for keyword in AI_TOPIC_KEYWORDS)
 
 
 def fetch_geekpark_items(source: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -291,6 +373,17 @@ def request_html(url: str, timeout: float, retries: int = 0) -> str:
             if attempt < retries:
                 time.sleep(attempt + 1)
     raise RuntimeError(f"请求 {url} 失败: {last_error}")
+
+
+def request_json(url: str, params: Dict[str, Any], timeout: float) -> Dict[str, Any]:
+    with httpx.Client(timeout=timeout, follow_redirects=True) as client:
+        response = client.get(
+            url,
+            params=params,
+            headers={**DEFAULT_HEADERS, "Accept": "application/vnd.github+json"},
+        )
+        response.raise_for_status()
+        return response.json()
 
 
 def build_item(

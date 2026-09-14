@@ -4,9 +4,11 @@ from unittest.mock import patch
 from src.fetcher import (
     assign_priorities,
     fetch_all_sources,
+    parse_github_high_star_items,
     fetch_horizon_items,
     parse_aihot_items,
     parse_horizon_items,
+    parse_sopilot_items,
 )
 
 
@@ -53,6 +55,41 @@ class FetcherTest(unittest.TestCase):
         self.assertEqual(items[0]["metric"], "⭐ 8.5/10")
         self.assertEqual(items[0]["raw_description"], "新芯片显著降低推理能耗。")
 
+    def test_sopilot_parser_only_keeps_ai_topics(self):
+        source = {
+            "name": "SoPilot",
+            "type": "sopilot",
+            "category": "AI 社媒热点",
+            "url": "https://sopilot.net/zh",
+            "limit": 5,
+        }
+        html = """
+        <section><h3>起爆热点话题</h3>
+          <article><div><a href="/rank/topic/ai">GPT 模型能力讨论</a><div><span>9 帖</span><span>27万</span></div></div></article>
+          <article><div><a href="/rank/topic/other">足球比赛结果</a><div><span>8 帖</span><span>31万</span></div></div></article>
+        </section>
+        """
+
+        items = parse_sopilot_items(html, source)
+
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["title"], "GPT 模型能力讨论")
+        self.assertEqual(items[0]["metric"], "🔥 27万 曝光")
+
+    def test_github_high_star_parser_filters_repositories_below_threshold(self):
+        source = {"name": "GitHub 高星活跃项目", "type": "github_high_star", "min_stars": 2000, "limit": 5}
+        data = {
+            "items": [
+                {"full_name": "org/high-star", "html_url": "https://github.com/org/high-star", "stargazers_count": 2000, "description": "AI project"},
+                {"full_name": "org/low-star", "html_url": "https://github.com/org/low-star", "stargazers_count": 1999, "description": "AI project"},
+            ]
+        }
+
+        items = parse_github_high_star_items(data, source)
+
+        self.assertEqual([item["title"] for item in items], ["org/high-star"])
+        self.assertEqual(items[0]["metric"], "⭐ 2,000")
+
     def test_horizon_date_is_converted_to_path_format(self):
         source = {
             "name": "Horizon",
@@ -86,7 +123,7 @@ class FetcherTest(unittest.TestCase):
         items = [
             {"source_type": "hype", "source": "HuggingFace", "title": "通用模型"},
             {"source_type": "hype", "source": "HuggingFace", "title": "语音识别模型"},
-            {"source_type": "hype", "source": "GitHub", "title": "开源项目"},
+            {"source_type": "github_high_star", "source": "GitHub 高星活跃项目", "title": "开源项目"},
             {"source_type": "aihot", "source": "AIHot", "title": "AI 热点"},
         ]
 

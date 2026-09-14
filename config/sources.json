@@ -10,9 +10,21 @@
       "name": "Hype",
       "type": "hype",
       "category": "AI 开源趋势",
-      "url": "https://hype.replicate.dev/?filter=past_day&sources=GitHub,HuggingFace,Reddit,Replicate",
+      "url": "https://hype.replicate.dev/?filter=past_day&sources=HuggingFace,Reddit,Replicate",
       "enabled": true,
       "limit": 15,
+      "timeout": 15
+    },
+    {
+      "name": "GitHub 高星活跃项目",
+      "type": "github_high_star",
+      "category": "高质量开源项目",
+      "url": "https://api.github.com/search/repositories",
+      "enabled": true,
+      "topic": "ai",
+      "min_stars": 2000,
+      "activity_days": 30,
+      "limit": 5,
       "timeout": 15
     },
     {
@@ -22,6 +34,15 @@
       "url": "https://aihot.news/",
       "enabled": true,
       "limit": 10,
+      "timeout": 15
+    },
+    {
+      "name": "SoPilot",
+      "type": "sopilot",
+      "category": "AI 社媒热点",
+      "url": "https://sopilot.net/zh",
+      "enabled": true,
+      "limit": 5,
       "timeout": 15
     },
     {

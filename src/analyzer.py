@@ -27,7 +27,7 @@ PROMPT_TEMPLATE = """你是一名资深 AI 架构师兼前沿技术观察员。
    - metric: 热度指标（如 ⭐ 2051 或 🤗 1024）
    - tag: 保留输入的 "🆕 新上榜" 或 "🔥 持续霸榜"
    - source: 保留输入来源名称
-   - summary: 一句话说明（概括这条新闻/项目主要讲什么、解决什么问题或影响什么，40字以内精炼中文；不得泛泛而谈）
+   - summary: 必须独立生成一条 40 字以内的自然中文总结。结合 title、raw_description、来源与热度，说明项目/新闻在做什么，以及为什么值得关注；不得照抄标题、英文简介或输出英文句子，不得凭空补充输入中没有的事实。专有名词可保留英文。
    - target_audience: 适合人群（如：前端工程师、全栈开发者、AI 创作者、独立开发者、安全团队）
    - stars: 推荐指数，格式为 ⭐⭐⭐⭐⭐（3 到 5 颗星）
 5. 返回格式必须为纯 JSON 数组，无需包裹任何 markdown 标记。
@@ -101,9 +101,7 @@ def fallback_analysis(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         elif it.get("source_type") in {"geekpark", "horizon"}:
             category = "🌐 [科技产业 & 极客]"
 
-        summary = it["raw_description"] if it["raw_description"] else "过去 24 小时热度快速飙升的 AI 项目。"
-        if len(summary) > 60:
-            summary = summary[:57] + "..."
+        summary = fallback_summary(it)
 
         fallback_items.append({
             "category": category,
@@ -117,3 +115,16 @@ def fallback_analysis(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             "stars": "⭐⭐⭐⭐"
         })
     return fallback_items
+
+
+def fallback_summary(item: Dict[str, Any]) -> str:
+    """未配置 Gemini 时，仍提供不含英文原文的中文一句话说明。"""
+    title = item["title"]
+    source_type = item.get("source_type")
+    if source_type == "github_high_star":
+        return f"「{title}」是总 Star 达标且近期活跃的 AI 开源项目，值得关注其最新工程进展。"
+    if source_type == "sopilot":
+        return f"围绕「{title}」的高热 AI 社媒讨论，反映当日市场关注焦点。"
+    if source_type == "aihot":
+        return f"「{title}」登上 AI 热点榜，代表当日值得跟进的技术或产品进展。"
+    return f"「{title}」是今日入选的 {item.get('source_category', '科技')} 动态，建议结合原文评估价值。"
