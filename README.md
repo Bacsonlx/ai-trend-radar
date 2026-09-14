@@ -1,13 +1,14 @@
 # 📡 AI 趋势雷达 (AI Trend Radar)
 
-> 每日定时聚合 `hype.replicate.dev` 的硬核工程信号（GitHub 飙升库、HuggingFace 新上架、Replicate 热门调用、Reddit 开发者讨论），利用 **Google Gemini Flash** 进行痛点提炼与智能分类，并通过 **GitHub Actions** 全自动零成本推送到 **飞书群机器人**。
+> 每日定时并发聚合 Hype、AIHot、极客公园和 Horizon 的 AI、开源、硬件与科技热点，利用 **Google Gemini Flash** 做高质量筛选、分类和一句话说明，并通过 **GitHub Actions** 全自动推送到 **飞书群机器人**。
 
 ---
 
 ## 🌟 核心特性
 
-- **直击真实工程信号**：告别社交媒体营销水军与推文搬运，基于真实 Star 增速、权重下载与推理调用量发现真黑马。
-- **Gemini Flash 智能研判**：自动将项目归类为【Agent & 自动化流】、【模型 & 推理革命】、【开发者神器 & 效率】、【前沿黑客 & 逆向】，并一句话说明痛点与适合人群。
+- **多源并发聚合**：Hype、AIHot、极客公园与 Horizon 同时抓取；任一来源超时或反爬失败都会被跳过，不会中断晨报。
+- **Gemini Flash 智能研判**：自动过滤重复、营销和低价值资讯，归类为模型研究、智能体、开源开发、硬件算力或科技产业，并输出一句话说明。
+- **可配置优先级**：在 `config/sources.json` 的 `priority_weights` 调整推送顺序，默认是 AI 热点 > 开源项目 > 语音模型 > 其他模型。
 - **高颜值飞书交互卡片**：定制排版，包含分类徽章、指标热度、评级星级与一键直达原始链接。
 - **智能历史去重**：自动记录已推送项目，智能标记「🆕 新上榜」与「🔥 持续霸榜」，防止信息疲劳。
 - **100% 零成本托管**：基于 GitHub Actions 调度，每天台北时间 09:00 定时汇总过去 24 小时的 AI 趋势，无需购买云服务器。
@@ -98,12 +99,14 @@ ai-trend-radar/
 │       └── daily_radar.yml    # 每天台北时间 09:00 定时执行任务
 ├── src/
 │   ├── __init__.py
-│   ├── fetcher.py            # 抓取 hype.replicate.dev 过去 24h 榜单
+│   ├── fetcher.py            # 并发抓取并解析各热点来源
 │   ├── deduplicator.py       # 历史记录比对与智能去重
 │   ├── analyzer.py           # Gemini Flash 痛点智能提炼引擎
 │   └── feishu.py             # 飞书交互式卡片构建与安全发送
 ├── data/
 │   └── history.json          # 历史推送缓存（自动维护）
+├── config/
+│   └── sources.json          # 信息源开关、URL、条数与超时配置
 ├── tests/
 │   └── test_main.py          # 报告日期与时区测试
 ├── .env.example              # 环境变量配置模板

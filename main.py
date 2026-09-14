@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 
-from src.fetcher import fetch_hype_items
+from src.fetcher import fetch_all_sources
 from src.deduplicator import filter_and_mark_items, save_history
 from src.analyzer import analyze_with_gemini
 from src.feishu import send_feishu_card
@@ -35,16 +35,15 @@ def main():
     print(f"=== 🚀 开始执行「AI 趋势雷达」昨日晨报任务 ({report_date}) ===")
 
     # 1. 抓取数据
-    print("[1/4] 正在抓取 hype.replicate.dev 过去 24 小时榜单...")
-    try:
-        raw_items = fetch_hype_items(limit=15)
-    except Exception as e:
-        print(f"❌ 抓取失败: {e}")
+    print("[1/4] 正在并发抓取 AI、硬件与极客热点来源...")
+    raw_items = fetch_all_sources(report_date)
+    if not raw_items:
+        print("❌ 所有信息源均未返回内容，任务终止。")
         sys.exit(1)
 
     # 2. 历史对比与去重
     print("[2/4] 正在比对历史缓存，识别全新黑马与霸榜项目...")
-    filtered_items, updated_history = filter_and_mark_items(raw_items, max_push=10)
+    filtered_items, updated_history = filter_and_mark_items(raw_items, max_push=30)
 
     # 3. Gemini 智能研判
     print(f"[3/4] 正在调用 Gemini Flash ({gemini_model}) 进行痛点提炼与分类...")

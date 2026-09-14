@@ -1,0 +1,46 @@
+{
+  "priority_weights": {
+    "ai_hot": 400,
+    "open_source": 300,
+    "voice_model": 200,
+    "other_model": 100
+  },
+  "sources": [
+    {
+      "name": "Hype",
+      "type": "hype",
+      "category": "AI 开源趋势",
+      "url": "https://hype.replicate.dev/?filter=past_day&sources=GitHub,HuggingFace,Reddit,Replicate",
+      "enabled": true,
+      "limit": 15,
+      "timeout": 15
+    },
+    {
+      "name": "AIHot",
+      "type": "aihot",
+      "category": "AI 热点",
+      "url": "https://aihot.news/",
+      "enabled": true,
+      "limit": 10,
+      "timeout": 15
+    },
+    {
+      "name": "极客公园",
+      "type": "geekpark",
+      "category": "硬件与科技产业",
+      "url": "https://www.geekpark.net/",
+      "enabled": true,
+      "limit": 10,
+      "timeout": 15
+    },
+    {
+      "name": "Horizon",
+      "type": "horizon",
+      "category": "高质量技术速递",
+      "url": "https://thysrael.github.io/Horizon/{date}/summary-zh.html",
+      "enabled": true,
+      "limit": 10,
+      "timeout": 15
+    }
+  ]
+}

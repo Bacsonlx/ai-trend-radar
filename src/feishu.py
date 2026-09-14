@@ -37,7 +37,7 @@ def send_feishu_card(
         "text": {
             "tag": "lark_md",
             "content": (
-                f"📅 **昨日速览**：监控到过去 24 小时 GitHub & HuggingFace 涌现多个高热度工程项目。"
+                f"📅 **昨日速览**：聚合 AI、开源、硬件与极客热点，过滤低质量重复信息。"
                 f"经 Gemini Flash 智能研判，为你精选以下 **{len(items)}** 条核心动态："
             )
         }
@@ -54,11 +54,13 @@ def send_feishu_card(
         summary = it.get("summary", "")
         audience = it.get("target_audience", "开发者")
         stars = it.get("stars", "⭐⭐⭐⭐")
+        source = it.get("source", "聚合资讯")
 
         card_content = (
             f"**{category}**  `{tag}`\n"
             f"🔗 **[{title}]({url})**  {metric}  {stars}\n"
-            f"💡 **核心痛点**：{summary}\n"
+            f"🗂️ **来源**：`{source}`\n"
+            f"💡 **一句话**：{summary}\n"
             f"🎯 **适合对象**：`{audience}`"
         )
 
@@ -79,10 +81,10 @@ def send_feishu_card(
                 "tag": "button",
                 "text": {
                     "tag": "plain_text",
-                    "content": "🌐 查看 hype.replicate 实时完整榜单"
+                    "content": "🌐 查看 AIHot 实时热点榜"
                 },
                 "type": "primary",
-                "url": "https://hype.replicate.dev/?filter=past_day"
+                "url": "https://aihot.news/"
             }
         ]
     })

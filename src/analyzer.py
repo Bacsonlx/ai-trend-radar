@@ -6,28 +6,31 @@ from typing import List, Dict, Any
 DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 PROMPT_TEMPLATE = """你是一名资深 AI 架构师兼前沿技术观察员。
-请根据以下从 hype.replicate.dev 抓取的过去 24 小时最热门的 AI/ML 开源项目与模型动态，生成一份高质量的「AI 晨报雷达」。
+请根据以下过去 24 小时聚合的 AI、硬件与极客热点，生成一份高质量、信息密度高的「AI 晨报雷达」。
 
 【输入数据】
 {items_json}
 
 【处理要求】
-1. 从列表中挑选出最具代表性、实用价值最高、值得关注的 6-8 个项目。
-2. 将入选项目严格归为以下 4 大分类之一：
-   - 🤖 [Agent & 自动化流]：自主智能体、多 Agent 协同、工作流、Skill 插件
-   - ⚡ [模型 & 推理革命]：端侧小模型、最新微调权重、极速推理优化
-   - 🛠️ [开发者神器 & 效率]：代码辅助、UI 动效、图表设计与数据处理
-   - 🔓 [前沿黑客 & 逆向探索]：反爬对抗、协议逆向、系统级越狱或底层探索
-3. 对每个项目输出：
-   - category: 上述 4 大分类之一
+1. 从列表中仅挑选 8-10 条最具代表性、事实明确、影响面大或实用价值高的资讯；同一事件的重复报道只能保留一条。忽略营销软文、泛泛观点、低热度重复信息与缺少具体事实的内容。
+2. 输入包含 priority 与 priority_label，代表用户指定的优先级：AI 热点 > 开源项目 > 语音模型 > 其他模型。优先选择高优先级内容，并严格按 priority 从高到低输出。
+3. 将入选资讯严格归为以下 5 类之一：
+   - 🧠 [AI 模型 & 研究]：基础模型、推理、论文、AI 科研突破
+   - 🤖 [AI 产品 & 智能体]：Agent、AI 产品、工作流、应用落地
+   - ⚙️ [开发者 & 开源]：GitHub、工具链、框架、工程效率
+   - 🖥️ [硬件 & 算力]：芯片、机器人、终端设备、数据中心与基础设施
+   - 🌐 [科技产业 & 极客]：重要公司、产业政策、商业趋势与深度科技观察
+4. 对每个项目输出：
+   - category: 上述 5 大分类之一
    - title: 项目名称（保持可读）
    - url: 原文链接
    - metric: 热度指标（如 ⭐ 2051 或 🤗 1024）
    - tag: 保留输入的 "🆕 新上榜" 或 "🔥 持续霸榜"
-   - summary: 一句话痛点直击（说明它解决了什么痛点，为什么今天爆火，40字以内精炼中文）
+   - source: 保留输入来源名称
+   - summary: 一句话说明（概括这条新闻/项目主要讲什么、解决什么问题或影响什么，40字以内精炼中文；不得泛泛而谈）
    - target_audience: 适合人群（如：前端工程师、全栈开发者、AI 创作者、独立开发者、安全团队）
    - stars: 推荐指数，格式为 ⭐⭐⭐⭐⭐（3 到 5 颗星）
-4. 返回格式必须为纯 JSON 数组，无需包裹任何 markdown 标记。
+5. 返回格式必须为纯 JSON 数组，无需包裹任何 markdown 标记。
 """
 
 def analyze_with_gemini(items: List[Dict[str, Any]], api_key: str, model_name: str = DEFAULT_MODEL) -> List[Dict[str, Any]]:
@@ -86,14 +89,17 @@ def fallback_analysis(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     降级处理：当未配置 API Key 或网络故障时，保证晨报不中断
     """
     fallback_items = []
-    for it in items[:6]:
-        category = "🛠️ [开发者神器 & 效率]"
-        if "agent" in it["title"].lower() or "skill" in it["title"].lower():
-            category = "🤖 [Agent & 自动化流]"
-        elif it["source"] == "HuggingFace":
-            category = "⚡ [模型 & 推理革命]"
-        elif "turnstile" in it["title"].lower() or "bypass" in it["title"].lower():
-            category = "🔓 [前沿黑客 & 逆向探索]"
+    for it in items[:10]:
+        title_lower = it["title"].lower()
+        category = "⚙️ [开发者 & 开源]"
+        if any(word in title_lower for word in ("agent", "智能体", "助手", "workflow")):
+            category = "🤖 [AI 产品 & 智能体]"
+        elif any(word in title_lower for word in ("model", "模型", "论文", "推理", "deepseek", "openai")):
+            category = "🧠 [AI 模型 & 研究]"
+        elif any(word in title_lower for word in ("芯片", "gpu", "机器人", "硬件", "算力", "cuda")):
+            category = "🖥️ [硬件 & 算力]"
+        elif it.get("source_type") in {"geekpark", "horizon"}:
+            category = "🌐 [科技产业 & 极客]"
 
         summary = it["raw_description"] if it["raw_description"] else "过去 24 小时热度快速飙升的 AI 项目。"
         if len(summary) > 60:
@@ -105,6 +111,7 @@ def fallback_analysis(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             "url": it["url"],
             "metric": it["metric"],
             "tag": it.get("tag", "🆕 新上榜"),
+            "source": it.get("source", ""),
             "summary": summary,
             "target_audience": "开发者与技术极客",
             "stars": "⭐⭐⭐⭐"

@@ -66,6 +66,9 @@ def filter_and_mark_items(items: List[Dict[str, Any]], max_push: int = 10) -> Tu
             # 持续霸榜的项目也允许入选，但优先保证新项目
             fresh_items.append(it)
 
-    # 优先选新项目，其次选霸榜项目
-    sorted_items = sorted(fresh_items, key=lambda x: (not x["is_new"], x["rank"]))
+    # 先按资讯优先级，再优先选新项目，最后按来源内热度排名。
+    sorted_items = sorted(
+        fresh_items,
+        key=lambda x: (-x.get("priority", 0), not x["is_new"], x["rank"]),
+    )
     return sorted_items[:max_push], history
