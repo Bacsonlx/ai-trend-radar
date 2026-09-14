@@ -369,49 +369,49 @@
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 8.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://www.claymath.org/news/navier-stokes-announcement/": {
       "title": "Clay 研究所就 Navier-Stokes 问题发布公告",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 8.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://simonwillison.net/2026/Sep/12/openai-agents-rubygems/": {
       "title": "报告称 OpenAI 智能体或于 5 月攻击 RubyGems",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 8.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://www.economist.com/interactive/briefing/2026/09/03/nvidia-is-the-central-bank-of-ai": {
       "title": "《经济学人》将英伟达比作“AI 经济的央行”",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 7.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://darioamodei.com/post/we-must-pace-the-frontier": {
       "title": "Dario Amodei 主张控制前沿 AI 发展节奏",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 7.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://mathandai.org/": {
       "title": "25 位菲尔兹奖得主警告 AI 或与数学研究目标错位",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 7.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://www.cnbc.com/2026/09/12/inflation-is-outpacing-wage-growth-again-squeezing-americans-paychecks.html": {
       "title": "美国 8 月通胀 3.4%再超工资增速，实际时薪同比下降 0.3%",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 8.0/10",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://github.com/potechitakusan/MangaAgentsStudio-A": {
       "title": "potechitakusan/MangaAgentsStudio-A",
@@ -424,15 +424,15 @@
       "title": "yuhyun00/SoftCorr",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
-      "metric": "⭐ 8",
-      "pushed_count": 1
+      "metric": "⭐ 10",
+      "pushed_count": 2
     },
     "https://github.com/luhao0209/AIops-platform": {
       "title": "luhao0209/AIops-platform",
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "⭐ 8",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://github.com/CuteOwOwO/visual-style-evolve": {
       "title": "CuteOwOwO/visual-style-evolve",
@@ -446,7 +446,7 @@
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "🤗 6",
-      "pushed_count": 1
+      "pushed_count": 2
     },
     "https://huggingface.co/handy-computer/whisper-large-v3-turbo-gguf": {
       "title": "handy-computer/whisper-large-v3-turbo-gguf",
@@ -495,6 +495,90 @@
       "first_seen": "2026-09-14",
       "last_seen": "2026-09-14",
       "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/Edge0/Edge0-35B-A3B-preview": {
+      "title": "Edge0/Edge0-35B-A3B-preview",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 1199",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/perplexity-ai/pplx-pii-masking": {
+      "title": "perplexity-ai/pplx-pii-masking",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 60",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/Edge0/Edge0-8B-A1B-preview": {
+      "title": "Edge0/Edge0-8B-A1B-preview",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 55",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/QLNI/SHADOW-250M": {
+      "title": "QLNI/SHADOW-250M",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 19",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/DeepCybo/PhysBrain1.5-8B": {
+      "title": "DeepCybo/PhysBrain1.5-8B",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 18",
+      "pushed_count": 1
+    },
+    "https://github.com/lucidrains/RLT": {
+      "title": "lucidrains/RLT",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "⭐ 15",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/g-group-ai-lab/gipformer1.5-65M-rnnt": {
+      "title": "g-group-ai-lab/gipformer1.5-65M-rnnt",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 12",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/DeepCybo/PhysBrain1.5-2B": {
+      "title": "DeepCybo/PhysBrain1.5-2B",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 10",
+      "pushed_count": 1
+    },
+    "https://github.com/openpaily/paicatch2": {
+      "title": "openpaily/paicatch2",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "⭐ 9",
+      "pushed_count": 1
+    },
+    "https://github.com/LynnReal-AI/LynnReal-Omni": {
+      "title": "LynnReal-AI/LynnReal-Omni",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "⭐ 9",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/mlx-community/Ornith-1.0-9B-OptiQ-4bit": {
+      "title": "mlx-community/Ornith-1.0-9B-OptiQ-4bit",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "🤗 9",
+      "pushed_count": 1
+    },
+    "https://github.com/shaikarifali/bundlebleed": {
+      "title": "shaikarifali/bundlebleed",
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-09-14",
+      "metric": "⭐ 8",
       "pushed_count": 1
     }
   }
