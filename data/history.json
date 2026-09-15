@@ -640,9 +640,9 @@
     "https://github.com/openclaw/openclaw": {
       "title": "openclaw/openclaw",
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-14",
-      "metric": "⭐ 389,651",
-      "pushed_count": 1
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 389,722",
+      "pushed_count": 2
     },
     "https://github.com/livekit/agents": {
       "title": "livekit/agents",
@@ -661,8 +661,155 @@
     "https://sopilot.net/rank/topic/anthropic-dario-frontier-ai-slowdown-safety": {
       "title": "AI减速争议延伸至Altman表态与中美竞争",
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-14",
-      "metric": "🔥 82万 曝光",
+      "last_seen": "2026-09-15",
+      "metric": "🔥 503万 曝光",
+      "pushed_count": 2
+    },
+    "https://yoshuabengio.org/en/publication/why-are-ai-agents-lying-cheating-and-coordinating": {
+      "title": "Bengio 文章引发 AI 智能体撒谎与协同讨论",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 8.0/10",
+      "pushed_count": 1
+    },
+    "https://brew.sh/2026/09/13/homebrew-7.0.0/": {
+      "title": "Homebrew 7.0.0 发布：官方 macOS 图形界面与安全增强",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 8.0/10",
+      "pushed_count": 1
+    },
+    "https://www.lesswrong.com/posts/munJKF7iWMsWJLAH2/astra-and-fable-still-hack-on-simple-variants-of-alignment": {
+      "title": "Astra 与 Fable 仍钻 2025 对齐评估空子",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 7.0/10",
+      "pushed_count": 1
+    },
+    "https://www.bilibili.com/video/BV1HEYv6XETo": {
+      "title": "麒麟 9050 Pro 评测：3D 堆叠提升性能与能效",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 7.0/10",
+      "pushed_count": 1
+    },
+    "https://seangoedecke.com/slow-devex-will-bottleneck-fast-models/": {
+      "title": "更快的模型会把瓶颈推向开发体验",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 5.0/10",
+      "pushed_count": 1
+    },
+    "https://github.com/unslothai/unsloth": {
+      "title": "unslothai/unsloth",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 76,179",
+      "pushed_count": 1
+    },
+    "https://github.com/OtterMind/Chat2DB": {
+      "title": "OtterMind/Chat2DB",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 28,117",
+      "pushed_count": 1
+    },
+    "https://github.com/deepset-ai/haystack": {
+      "title": "deepset-ai/haystack",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 26,510",
+      "pushed_count": 1
+    },
+    "https://github.com/coleam00/Archon": {
+      "title": "coleam00/Archon",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "⭐ 23,469",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/m-a-p/SheetSage2": {
+      "title": "m-a-p/SheetSage2",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 69",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/byteshape/Qwen3.8-27B-GGUF": {
+      "title": "byteshape/Qwen3.8-27B-GGUF",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 34",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/nvidia/Muse-Glimmer-30B-NVFP4": {
+      "title": "nvidia/Muse-Glimmer-30B-NVFP4",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 8",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/ProCreations/grug-27b-v2": {
+      "title": "ProCreations/grug-27b-v2",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 6",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/MikeRoz/GLM-5.3-Flash-Uncensored-3.05bpw-h6-exl3": {
+      "title": "MikeRoz/GLM-5.3-Flash-Uncensored-3.05bpw-h6-exl3",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 4",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/MikeRoz/GLM-5.3-Flash-Uncensored-4.05bpw-h6-exl3": {
+      "title": "MikeRoz/GLM-5.3-Flash-Uncensored-4.05bpw-h6-exl3",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 4",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/mlx-community/Ornith-1.0-35B-OptiQ-6bit": {
+      "title": "mlx-community/Ornith-1.0-35B-OptiQ-6bit",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 3",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/ProCreations/grug-27b-v2-gguf": {
+      "title": "ProCreations/grug-27b-v2-gguf",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 3",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/softwareweaver/GLM-5.3-Uncensored-GGUF": {
+      "title": "softwareweaver/GLM-5.3-Uncensored-GGUF",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/jialinyyzz/humanizer-gemma-4-e4b": {
+      "title": "jialinyyzz/humanizer-gemma-4-e4b",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/mlx-community/Laguna-S-2.1-OptiQ-2bit": {
+      "title": "mlx-community/Laguna-S-2.1-OptiQ-2bit",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 2",
+      "pushed_count": 1
+    },
+    "https://huggingface.co/Joakimpalm-Zen/Qwen3.8-27B-GSQ-RCO-IQ3_S-recovered-GGUF": {
+      "title": "Joakimpalm-Zen/Qwen3.8-27B-GSQ-RCO-IQ3_S-recovered-GGUF",
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-09-15",
+      "metric": "🤗 2",
       "pushed_count": 1
     }
   }
