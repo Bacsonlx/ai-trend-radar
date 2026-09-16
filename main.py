@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from src.fetcher import fetch_all_sources
 from src.deduplicator import filter_and_mark_items, save_history
-from src.analyzer import analyze_with_gemini
+from src.analyzer import analyze_items
 from src.feishu import send_feishu_card
 
 REPORT_TIMEZONE = ZoneInfo("Asia/Taipei")
@@ -26,6 +26,8 @@ def main():
     # 优先加载本地 .env 文件
     load_dotenv()
 
+    openai_key = os.getenv("OPENAI_API_KEY", "").strip()
+    openai_model = os.getenv("OPENAI_MODEL", "gpt-6-astra").strip()
     gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
     gemini_model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
     feishu_webhook = os.getenv("FEISHU_WEBHOOK_URL", "").strip()
@@ -45,9 +47,15 @@ def main():
     print("[2/4] 正在比对历史缓存，识别全新黑马与霸榜项目...")
     filtered_items, updated_history = filter_and_mark_items(raw_items, max_push=30)
 
-    # 3. Gemini 智能研判
-    print(f"[3/4] 正在调用 Gemini Flash ({gemini_model}) 进行痛点提炼与分类...")
-    analyzed_items = analyze_with_gemini(filtered_items, api_key=gemini_key, model_name=gemini_model)
+    # 3. OpenAI 智能研判，Gemini 仅在主模型失败时兜底
+    print(f"[3/4] 正在调用 OpenAI ({openai_model}) 进行热点提炼与分类...")
+    analyzed_items = analyze_items(
+        filtered_items,
+        openai_api_key=openai_key,
+        openai_model=openai_model,
+        gemini_api_key=gemini_key,
+        gemini_model=gemini_model,
+    )
 
     # 4. 推送到飞书
     print("[4/4] 正在推送至飞书群机器人...")

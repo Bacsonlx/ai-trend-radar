@@ -3,7 +3,8 @@ import json
 import httpx
 from typing import List, Dict, Any
 
-DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+OPENAI_DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "gpt-6-astra")
+GEMINI_DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 PROMPT_TEMPLATE = """你是一名资深 AI 架构师兼前沿技术观察员。
 请根据以下过去 24 小时聚合的 AI、硬件与极客热点，生成一份高质量、信息密度高的「AI 晨报雷达」。
@@ -33,7 +34,50 @@ PROMPT_TEMPLATE = """你是一名资深 AI 架构师兼前沿技术观察员。
 5. 返回格式必须为纯 JSON 数组，无需包裹任何 markdown 标记。
 """
 
-def analyze_with_gemini(items: List[Dict[str, Any]], api_key: str, model_name: str = DEFAULT_MODEL) -> List[Dict[str, Any]]:
+def parse_analysis_response(raw_text: str) -> List[Dict[str, Any]]:
+    """解析模型返回的 JSON 数组或 {"items": [...]} 结构。"""
+    parsed = json.loads(raw_text)
+    if isinstance(parsed, list):
+        return parsed
+    if isinstance(parsed, dict) and isinstance(parsed.get("items"), list):
+        return parsed["items"]
+    raise ValueError("模型返回的 JSON 不包含资讯列表")
+
+
+def analyze_with_openai(
+    items: List[Dict[str, Any]], api_key: str, model_name: str = OPENAI_DEFAULT_MODEL
+) -> List[Dict[str, Any]]:
+    """调用 OpenAI Responses API；失败交由调用方切换 Gemini。"""
+    if not api_key:
+        raise ValueError("未配置 OPENAI_API_KEY")
+
+    prompt = PROMPT_TEMPLATE.format(items_json=json.dumps(items, ensure_ascii=False, indent=2))
+    payload = {
+        "model": model_name,
+        "input": prompt,
+        "text": {"format": {"type": "json_object"}},
+    }
+
+    with httpx.Client(timeout=45.0) as client:
+        resp = client.post(
+            "https://api.openai.com/v1/responses",
+            headers={"Authorization": f"Bearer {api_key}"},
+            json=payload,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+
+    raw_text = data.get("output_text", "").strip()
+    if not raw_text:
+        raise ValueError("OpenAI 未返回文本内容")
+    result = parse_analysis_response(raw_text)
+    print(f"[Analyzer] OpenAI ({model_name}) 成功精炼出 {len(result)} 条深度动态")
+    return result
+
+
+def analyze_with_gemini(
+    items: List[Dict[str, Any]], api_key: str, model_name: str = GEMINI_DEFAULT_MODEL
+) -> List[Dict[str, Any]]:
     """
     调用 Google Gemini Flash API 进行结构化智能提炼
     """
@@ -71,17 +115,35 @@ def analyze_with_gemini(items: List[Dict[str, Any]], api_key: str, model_name: s
                 raise ValueError("Gemini 未返回候选内容")
                 
             raw_text = candidates[0]["content"]["parts"][0]["text"].strip()
-            parsed = json.loads(raw_text)
-            if isinstance(parsed, list):
-                print(f"[Analyzer] Gemini 成功精炼出 {len(parsed)} 条深度动态")
-                return parsed
-            elif isinstance(parsed, dict) and "items" in parsed:
-                return parsed["items"]
-            else:
-                return fallback_analysis(items)
+            result = parse_analysis_response(raw_text)
+            print(f"[Analyzer] Gemini 成功精炼出 {len(result)} 条深度动态")
+            return result
     except Exception as e:
         print(f"[Analyzer] 调用 Gemini API 出错 ({e})，将启用本地降级逻辑")
         return fallback_analysis(items)
+
+
+def analyze_items(
+    items: List[Dict[str, Any]],
+    openai_api_key: str,
+    openai_model: str = OPENAI_DEFAULT_MODEL,
+    gemini_api_key: str = "",
+    gemini_model: str = GEMINI_DEFAULT_MODEL,
+) -> List[Dict[str, Any]]:
+    """按 OpenAI → Gemini → 本地规则的顺序生成晨报。"""
+    if openai_api_key:
+        try:
+            return analyze_with_openai(items, openai_api_key, openai_model)
+        except Exception as error:
+            print(f"[Analyzer] OpenAI 调用失败 ({error})，切换 Gemini 兜底")
+    else:
+        print("[Analyzer] 未检测到 OPENAI_API_KEY，切换 Gemini 兜底")
+
+    if gemini_api_key:
+        return analyze_with_gemini(items, gemini_api_key, gemini_model)
+
+    print("[Analyzer] 未检测到 GEMINI_API_KEY，启用降级纯文本规则提炼")
+    return fallback_analysis(items)
 
 
 def fallback_analysis(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

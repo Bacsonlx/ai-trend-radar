@@ -1,17 +1,17 @@
 # 📡 AI 趋势雷达 (AI Trend Radar)
 
-> 每日定时并发聚合 Hype（不含 GitHub 速增榜）、GitHub 高星活跃项目、AIHot、SoPilot、极客公园和 Horizon 的 AI、开源、硬件与科技热点，利用 **Google Gemini Flash** 做高质量筛选、分类和一句话说明，并通过 **GitHub Actions** 全自动推送到 **飞书群机器人**。
+> 每日定时并发聚合 Hype（不含 GitHub 速增榜）、GitHub 高星活跃项目、AIHot、SoPilot、极客公园和 Horizon 的 AI、开源、硬件与科技热点，利用 **OpenAI `gpt-6-astra`** 做高质量筛选、分类和一句话说明；Google Gemini 仅在主模型不可用时兜底，并由本机 `launchd` 推送到 **飞书群机器人**。
 
 ---
 
 ## 🌟 核心特性
 
 - **多源并发聚合**：Hype、GitHub 高星活跃项目、AIHot、SoPilot、极客公园与 Horizon 同时抓取；Hype 已排除 GitHub 速增项目，GitHub 来源仅保留总 Star ≥ 2000 且近 30 天活跃的 AI 项目，SoPilot 仅收录高热 AI 话题；任一来源超时或反爬失败都会被跳过，不会中断晨报。
-- **Gemini Flash 智能研判**：自动过滤重复、营销和低价值资讯，归类为模型研究、智能体、开源开发、硬件算力或科技产业，并为每条内容生成中文一句话总结。
+- **双模型容错研判**：优先调用 OpenAI `gpt-6-astra`，失败后才调用 Gemini；两者都不可用时仍以本地规则生成晨报，保证推送流程不中断。
 - **可配置优先级**：在 `config/sources.json` 的 `priority_weights` 调整推送顺序，默认是 AI 热点 > 开源项目 > 语音模型 > 其他模型。
 - **高颜值飞书交互卡片**：定制排版，包含分类徽章、指标热度、评级星级与一键直达原始链接。
 - **智能历史去重**：自动记录已推送项目，智能标记「🆕 新上榜」与「🔥 持续霸榜」，防止信息疲劳。
-- **100% 零成本托管**：基于 GitHub Actions 调度，每天台北时间 09:00 定时汇总过去 24 小时的 AI 趋势，无需购买云服务器。
+- **本机准点调度**：由 macOS `launchd` 在每天本地时间 09:30 执行，避开 GitHub Actions 的排队延迟。
 
 ---
 
@@ -19,11 +19,15 @@
 
 ### 第一步：获取必要密钥
 
-1. **获取 Gemini API Key**：
-   - 访问 [Google AI Studio](https://aistudio.google.com/app/apikey)。
-   - 点击 **Create API Key**，复制生成的密钥（免费额度每日完全够用）。
+1. **获取 OpenAI API Key（主模型）**：
+   - 在 OpenAI API 平台创建 API Key，填入 `OPENAI_API_KEY`。
+   - 桌面版 Codex 的登录态不能直接供本地脚本调用，需使用独立的 OpenAI API Key。
 
-2. **获取飞书自定义机器人 Webhook**：
+2. **获取 Gemini API Key（兜底）**：
+   - 访问 [Google AI Studio](https://aistudio.google.com/app/apikey)。
+   - 点击 **Create API Key**，复制生成的密钥；仅在 OpenAI 调用失败时使用。
+
+3. **获取飞书自定义机器人 Webhook**：
    - 在飞书电脑端，选择任意你希望接收晨报的群组，点击群设置 ➔ **群机器人** ➔ **添加机器人** ➔ **自定义机器人**。
    - 机器人名称可填写 `AI 趋势雷达`，添加后复制获得的 **Webhook 地址**。
    - *(可选)*：如果勾选了“签名校验”，将密钥保存备用。
@@ -43,7 +47,8 @@ pip install -r requirements.txt
 # 2. 复制配置文件
 cp .env.example .env
 
-# 3. 编辑 .env 填入你的 GEMINI_API_KEY 与 FEISHU_WEBHOOK_URL
+# 3. 编辑 .env，至少填入 OPENAI_API_KEY 与 FEISHU_WEBHOOK_URL
+#    GEMINI_API_KEY 用于 OpenAI 调用失败时兜底
 # （如果暂时不填 Webhook，程序会自动在控制台输出卡片预览）
 
 # 4. 立即运行测试
@@ -52,41 +57,30 @@ python main.py
 
 ---
 
-### 第三步：推送到 GitHub 启用全自动托管
+### 第三步：安装 macOS 本地定时任务
 
-1. **新建 GitHub 仓库**：
-   在 GitHub 上新建一个私有或公开仓库（如 `ai-trend-radar`）。
+以下命令会将 LaunchAgent 注册为当前用户的任务，每天本地时间 09:30 执行一次：
 
-2. **推送代码**：
-   ```bash
-   cd ai-trend-radar
-   git init
-   git add .
-   git commit -m "feat: initial ai trend radar setup"
-   git branch -M main
-   git remote add origin git@github.com:<你的用户名>/ai-trend-radar.git
-   git push -u origin main
-   ```
+```bash
+cp launchd/com.bacsonlx.ai-trend-radar.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.bacsonlx.ai-trend-radar.plist
+```
 
-3. **配置 GitHub Secrets**：
-   - 打开 GitHub 仓库页面，点击 **Settings** ➔ **Secrets and variables** ➔ **Actions**。
-   - 点击 **New repository secret**，依次添加以下环境变量：
-     - `GEMINI_API_KEY`: 你的 Google AI Studio 密钥（必填）。
-     - `FEISHU_WEBHOOK_URL`: 你的飞书机器人 Webhook 地址（必填）。
-     - `FEISHU_SECRET`: 飞书机器人的签名密钥（可选，未开启校验则不填）。
-     - `GEMINI_MODEL`: `gemini-2.5-flash`（可选，默认即为 Flash）。
+立即试跑一次：
 
-4. **开启 Actions 提交权限（重要）**：
-   - 在仓库的 **Settings** ➔ **Actions** ➔ **General** 页面最底部；
-   - 找到 **Workflow permissions**，选择 **Read and write permissions** 并点击 Save（允许机器人持久化保存去重缓存文件 `history.json`）。
+```bash
+launchctl kickstart -k gui/$(id -u)/com.bacsonlx.ai-trend-radar
+tail -f logs/launchd.out.log
+```
 
----
+任务状态与故障日志：
 
-### 第四步：立即触发测试
+```bash
+launchctl print gui/$(id -u)/com.bacsonlx.ai-trend-radar
+tail -f logs/launchd.err.log
+```
 
-- 进入 GitHub 仓库的 **Actions** 标签页。
-- 在左侧选择 **Daily AI Trend Radar** 工作流。
-- 点击右侧的 **Run workflow** 按钮，即可在 1 分钟内看到运行结果，并直接在飞书群中收到交互式卡片！
+> 本机需要在 09:30 前保持开机并已登录；关机或休眠期间不会执行。更新 plist 后先执行 `launchctl bootout gui/$(id -u)/com.bacsonlx.ai-trend-radar`，再重新 `bootstrap`。
 
 ---
 
@@ -94,14 +88,15 @@ python main.py
 
 ```text
 ai-trend-radar/
-├── .github/
-│   └── workflows/
-│       └── daily_radar.yml    # 每天台北时间 09:00 定时执行任务
+├── launchd/
+│   └── com.bacsonlx.ai-trend-radar.plist # 每天本地时间 09:30 的 LaunchAgent
+├── scripts/
+│   └── run_daily_radar.sh     # launchd 调用入口
 ├── src/
 │   ├── __init__.py
 │   ├── fetcher.py            # 并发抓取并解析各热点来源
 │   ├── deduplicator.py       # 历史记录比对与智能去重
-│   ├── analyzer.py           # Gemini Flash 痛点智能提炼引擎
+│   ├── analyzer.py           # OpenAI 主模型 / Gemini 兜底的智能提炼引擎
 │   └── feishu.py             # 飞书交互式卡片构建与安全发送
 ├── data/
 │   └── history.json          # 历史推送缓存（自动维护）

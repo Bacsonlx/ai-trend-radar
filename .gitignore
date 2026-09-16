@@ -10,6 +10,10 @@ ENV/
 # Environment variables & secrets
 .env
 
+# Local launchd logs
+logs/*
+!logs/.gitkeep
+
 # IDE / OS
 .DS_Store
 .vscode/
