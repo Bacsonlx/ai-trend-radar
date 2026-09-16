@@ -11,7 +11,7 @@
 - **可配置优先级**：在 `config/sources.json` 的 `priority_weights` 调整推送顺序，默认是 AI 热点 > 开源项目 > 语音模型 > 其他模型。
 - **高颜值飞书交互卡片**：定制排版，包含分类徽章、指标热度、评级星级与一键直达原始链接。
 - **智能历史去重**：自动记录已推送项目，智能标记「🆕 新上榜」与「🔥 持续霸榜」，防止信息疲劳。
-- **本机准点调度**：由 macOS `launchd` 在每天本地时间 09:30 执行，避开 GitHub Actions 的排队延迟。
+- **本机准点调度**：由 macOS `launchd` 在每天本地时间 09:00 执行，避开 GitHub Actions 的排队延迟。
 
 ---
 
@@ -59,7 +59,7 @@ python main.py
 
 ### 第三步：安装 macOS 本地定时任务
 
-以下命令会将 LaunchAgent 注册为当前用户的任务，每天本地时间 09:30 执行一次：
+以下命令会将 LaunchAgent 注册为当前用户的任务，每天本地时间 09:00 执行一次：
 
 ```bash
 cp launchd/com.bacsonlx.ai-trend-radar.plist ~/Library/LaunchAgents/
@@ -89,7 +89,7 @@ tail -f logs/launchd.err.log
 ```text
 ai-trend-radar/
 ├── launchd/
-│   └── com.bacsonlx.ai-trend-radar.plist # 每天本地时间 09:30 的 LaunchAgent
+│   └── com.bacsonlx.ai-trend-radar.plist # 每天本地时间 09:00 的 LaunchAgent
 ├── scripts/
 │   └── run_daily_radar.sh     # launchd 调用入口
 ├── src/
